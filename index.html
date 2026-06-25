@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wilmer Dev — Portfolio</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+        :root{
+            --bg:#08080c;
+            --red:#e63946;
+            --red-dark:#9b1d28;
+            --white:#f0ece4;
+            --gray:#6b6b6b;
+            --card-bg:#0e0e14;
+            --border:rgba(255,255,255,0.06);
+        }
+        body{
+            background:var(--bg);
+            color:var(--white);
+            font-family:'Space Grotesk',sans-serif;
+            overflow-x:hidden;
+            line-height:1.6;
+        }
+        html{scroll-behavior:smooth}
+
+        /* Noise overlay */
+        body::before{
+            content:'';
+            position:fixed;inset:0;z-index:999;pointer-events:none;
+            opacity:0.015;
+            background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+        }
+
+        /* ── Layout ── */
+        .container{max-width:1200px;margin:0 auto;padding:0 2rem}
+        section{padding:6rem 0}
+
+        /* ── NAV ── */
+        nav{
+            position:fixed;top:0;left:0;right:0;z-index:100;
+            padding:1.5rem 2rem;
+            display:flex;justify-content:space-between;align-items:center;
+            mix-blend-mode:difference;
+        }
+        .nav-logo{
+            font-size:1.4rem;font-weight:700;letter-spacing:-0.02em;
+            color:var(--red);
+        }
+        .nav-links{display:flex;gap:2rem;list-style:none}
+        .nav-links a{
+            color:var(--white);text-decoration:none;
+            font-size:0.8rem;font-weight:500;text-transform:uppercase;
+            letter-spacing:0.1em;opacity:0.6;transition:opacity 0.2s;
+        }
+        .nav-links a:hover{opacity:1;color:var(--red)}
+
+        /* ── HERO ── */
+        .hero{padding:12rem 2rem 6rem;min-height:100vh;display:flex;flex-direction:column;justify-content:center}
+        .hero-tag{
+            font-family:'JetBrains Mono',monospace;
+            font-size:0.75rem;color:var(--red);letter-spacing:0.2em;
+            text-transform:uppercase;margin-bottom:2rem;
+        }
+        .hero h1{
+            font-size:clamp(3rem,8vw,7rem);font-weight:700;
+            letter-spacing:-0.03em;line-height:1;margin-bottom:1.5rem;
+        }
+        .hero h1 .accent{color:var(--red)}
+        .hero p{
+            font-size:clamp(1rem,2vw,1.3rem);max-width:560px;
+            opacity:0.6;font-weight:300;margin-bottom:3rem;
+        }
+        .hero-cta{
+            display:inline-flex;align-items:center;gap:0.8rem;
+            background:var(--red);color:var(--white);
+            border:none;padding:1rem 2.5rem;
+            font-family:'Space Grotesk',sans-serif;
+            font-size:0.9rem;font-weight:600;text-transform:uppercase;
+            letter-spacing:0.1em;cursor:pointer;
+            text-decoration:none;
+            transition:transform 0.2s,box-shadow 0.2s;
+            box-shadow:0 0 0 0 rgba(230,57,70,0);
+        }
+        .hero-cta:hover{
+            transform:translate(-3px,-3px);
+            box-shadow:6px 6px 0 rgba(230,57,70,0.3);
+        }
+
+        /* ── Section headers ── */
+        .section-label{
+            font-family:'JetBrains Mono',monospace;
+            font-size:0.7rem;color:var(--red);letter-spacing:0.2em;
+            text-transform:uppercase;margin-bottom:1rem;
+        }
+        .section-title{
+            font-size:clamp(2rem,5vw,3.5rem);font-weight:700;
+            letter-spacing:-0.02em;margin-bottom:3rem;
+            line-height:1.1;
+        }
+        .section-title .dim{opacity:0.25}
+
+        /* ── Projects grid ── */
+        .projects-grid{
+            display:grid;
+            grid-template-columns:repeat(auto-fit,minmax(320px,1fr));
+            gap:1.5rem;
+        }
+        .project-card{
+            background:var(--card-bg);
+            border:1px solid var(--border);
+            border-radius:12px;
+            padding:2rem;
+            transition:border-color 0.3s,transform 0.2s;
+            position:relative;overflow:hidden;
+        }
+        .project-card:hover{
+            border-color:var(--red);
+            transform:translateY(-4px);
+        }
+        .project-card::after{
+            content:'';
+            position:absolute;top:-50%;right:-50%;
+            width:200px;height:200px;
+            background:radial-gradient(circle,var(--red) 0%,transparent 70%);
+            opacity:0;transition:opacity 0.3s;
+        }
+        .project-card:hover::after{opacity:0.03}
+        .project-number{
+            font-family:'JetBrains Mono',monospace;
+            font-size:0.7rem;color:var(--red);margin-bottom:0.8rem;
+            letter-spacing:0.1em;
+        }
+        .project-card h3{
+            font-size:1.5rem;font-weight:600;margin-bottom:0.5rem;
+            letter-spacing:-0.01em;
+        }
+        .project-tags{
+            display:flex;flex-wrap:wrap;gap:0.4rem;margin-bottom:1rem;
+        }
+        .tag{
+            font-size:0.65rem;text-transform:uppercase;letter-spacing:0.08em;
+            padding:0.25rem 0.6rem;border-radius:4px;
+            font-weight:500;
+            background:rgba(255,255,255,0.05);
+            color:var(--gray);
+        }
+        .tag.red{background:rgba(230,57,70,0.15);color:var(--red)}
+        .project-card p{
+            font-size:0.85rem;opacity:0.5;line-height:1.6;
+            margin-bottom:1.5rem;
+        }
+        .project-link{
+            font-size:0.75rem;color:var(--red);text-decoration:none;
+            text-transform:uppercase;letter-spacing:0.15em;font-weight:600;
+            display:inline-flex;align-items:center;gap:0.4rem;
+        }
+        .project-link:hover{text-decoration:underline}
+
+        /* ── Skills ── */
+        .skills-marquee{
+            overflow:hidden;white-space:nowrap;
+            padding:2rem 0;border-top:1px solid var(--border);
+            border-bottom:1px solid var(--border);
+        }
+        .skills-track{
+            display:inline-flex;gap:3rem;
+            animation:marquee 25s linear infinite;
+        }
+        .skills-track span{
+            font-size:0.8rem;text-transform:uppercase;
+            letter-spacing:0.15em;opacity:0.4;font-weight:500;
+        }
+        .skills-track .hl{color:var(--red);opacity:0.8}
+        @keyframes marquee{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+
+        /* ── CTA section ── */
+        .cta-section{
+            text-align:center;padding:8rem 0;
+            background:linear-gradient(180deg,transparent 0%,rgba(230,57,70,0.03) 50%,transparent 100%);
+        }
+        .cta-section .big-text{
+            font-size:clamp(2.5rem,6vw,5rem);font-weight:700;
+            letter-spacing:-0.03em;line-height:1;margin-bottom:2rem;
+        }
+        .cta-section .big-text .red{color:var(--red)}
+
+        /* ── Footer ── */
+        footer{
+            padding:2rem;text-align:center;
+            font-size:0.7rem;opacity:0.3;
+            font-family:'JetBrains Mono',monospace;
+            border-top:1px solid var(--border);
+        }
+
+        /* ── Responsive ── */
+        @media(max-width:768px){
+            .hero{padding:8rem 1.5rem 4rem}
+            .container{padding:0 1.5rem}
+            section{padding:4rem 0}
+            .nav-links{display:none}
+            .projects-grid{grid-template-columns:1fr}
+        }
+    </style>
+</head>
+<body>
+
+<nav>
+    <div class="nav-logo">W</div>
+    <ul class="nav-links">
+        <li><a href="#work">Proyectos</a></li>
+        <li><a href="#skills">Skills</a></li>
+        <li><a href="#contact">Contacto</a></li>
+    </ul>
+</nav>
+
+<section class="hero">
+    <span class="hero-tag">// Desarrollador Full-Stack</span>
+    <h1>Construyo<br><span class="accent">software que</span><br>resuelve.</h1>
+    <p>
+        Dashboards, APIs, PWAs, juegos 3D. Del backend a la interfaz, 
+        sin frameworks innecesarios cuando no hacen falta. 
+        Código limpio, rendimiento real.
+    </p>
+    <a href="#contact" class="hero-cta">Hablemos →</a>
+</section>
+
+<section id="work">
+    <div class="container">
+        <div class="section-label">[ 01 ]</div>
+        <h2 class="section-title">
+            Proyectos<span class="dim">.</span>
+        </h2>
+        <div class="projects-grid">
+
+            <!-- EducaDash -->
+            <div class="project-card">
+                <div class="project-number">01 / 05</div>
+                <h3>EducaDash</h3>
+                <div class="project-tags">
+                    <span class="tag red">React</span>
+                    <span class="tag">Supabase</span>
+                    <span class="tag">Tailwind</span>
+                    <span class="tag">Cloudflare Pages</span>
+                </div>
+                <p>
+                    Panel administrativo para gestión escolar: alumnos, pagos, 
+                    carnets, certificados, importación CSV. Auth con optimistic 
+                    cache, filtros con debounce, diseño responsive.
+                </p>
+                <a href="https://github.com/Toyoenohio/EducaDash" class="project-link" target="_blank">Ver código ↗</a>
+            </div>
+
+            <!-- EducaAlu -->
+            <div class="project-card">
+                <div class="project-number">02 / 05</div>
+                <h3>EducaAlu</h3>
+                <div class="project-tags">
+                    <span class="tag red">React</span>
+                    <span class="tag">Supabase</span>
+                    <span class="tag">Tailwind</span>
+                    <span class="tag">Portal Estudiantil</span>
+                </div>
+                <p>
+                    Portal del estudiante: consulta de pagos, solicitud de 
+                    carnets y certificados, perfil. Mismo backend Supabase, 
+                    auth con localStorage cache para carga instantánea.
+                </p>
+                <a href="https://github.com/Toyoenohio/EducaAlu" class="project-link" target="_blank">Ver código ↗</a>
+            </div>
+
+            <!-- Gastin -->
+            <div class="project-card">
+                <div class="project-number">03 / 05</div>
+                <h3>Gastin</h3>
+                <div class="project-tags">
+                    <span class="tag red">PWA</span>
+                    <span class="tag">Vanilla JS</span>
+                    <span class="tag">Supabase</span>
+                    <span class="tag">Offline-First</span>
+                </div>
+                <p>
+                    Control de gastos como PWA instalable. Funciona offline, 
+                    sincroniza al reconectar. Service worker, manifiesto, 
+                    iconos adaptativos, detección de conexión en tiempo real.
+                </p>
+                <a href="https://github.com/Toyoenohio/gastin" class="project-link" target="_blank">Ver código ↗</a>
+            </div>
+
+            <!-- Overdrive -->
+            <div class="project-card">
+                <div class="project-number">04 / 05</div>
+                <h3>Overdrive</h3>
+                <div class="project-tags">
+                    <span class="tag red">Three.js</span>
+                    <span class="tag">WebGL</span>
+                    <span class="tag">Gamepad API</span>
+                    <span class="tag">OSM Data</span>
+                </div>
+                <p>
+                    Juego de conducción 3D en las calles reales de Lechería. 
+                    Ruta trazada con datos geográficos, CatmullRom splines, 
+                    ciclo día/noche, faros dinámicos, gamepad y touch.
+                </p>
+                <a href="https://github.com/Toyoenohio/Overdrive" class="project-link" target="_blank">Ver código ↗</a>
+            </div>
+
+            <!-- Dolar API -->
+            <div class="project-card">
+                <div class="project-number">05 / 05</div>
+                <h3>Dolar API</h3>
+                <div class="project-tags">
+                    <span class="tag red">Python</span>
+                    <span class="tag">Flask</span>
+                    <span class="tag">REST API</span>
+                    <span class="tag">Rate Limiting</span>
+                </div>
+                <p>
+                    API de tasas de cambio: BCV + Binance en tiempo real. 
+                    Rate limiting, caché, endpoints REST documentados. 
+                    Lista para integrar con apps, bots y dashboards.
+                </p>
+                <span class="project-link">Backend privado</span>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<section id="skills">
+    <div class="container">
+        <div class="section-label">[ 02 ]</div>
+        <h2 class="section-title">
+            Stack<span class="dim">.</span>
+        </h2>
+    </div>
+    <div class="skills-marquee">
+        <div class="skills-track">
+            <span>React</span><span class="hl">·</span>
+            <span>TypeScript</span><span class="hl">·</span>
+            <span>JavaScript</span><span class="hl">·</span>
+            <span>Python</span><span class="hl">·</span>
+            <span>Supabase</span><span class="hl">·</span>
+            <span>PostgreSQL</span><span class="hl">·</span>
+            <span>Three.js</span><span class="hl">·</span>
+            <span>WebGL</span><span class="hl">·</span>
+            <span>Tailwind CSS</span><span class="hl">·</span>
+            <span>PWA</span><span class="hl">·</span>
+            <span>REST APIs</span><span class="hl">·</span>
+            <span>Cloudflare Pages</span><span class="hl">·</span>
+            <span>Gamepad API</span><span class="hl">·</span>
+            <span>n8n</span><span class="hl">·</span>
+            <span>ManyChat</span><span class="hl">·</span>
+            <span>Git/GitHub</span><span class="hl">·</span>
+            <span>Linux</span>
+
+            <!-- Duplicate for seamless loop -->
+            <span>React</span><span class="hl">·</span>
+            <span>TypeScript</span><span class="hl">·</span>
+            <span>JavaScript</span><span class="hl">·</span>
+            <span>Python</span><span class="hl">·</span>
+            <span>Supabase</span><span class="hl">·</span>
+            <span>PostgreSQL</span><span class="hl">·</span>
+            <span>Three.js</span><span class="hl">·</span>
+            <span>WebGL</span><span class="hl">·</span>
+            <span>Tailwind CSS</span><span class="hl">·</span>
+            <span>PWA</span><span class="hl">·</span>
+            <span>REST APIs</span><span class="hl">·</span>
+            <span>Cloudflare Pages</span><span class="hl">·</span>
+            <span>Gamepad API</span><span class="hl">·</span>
+            <span>n8n</span><span class="hl">·</span>
+            <span>ManyChat</span><span class="hl">·</span>
+            <span>Git/GitHub</span><span class="hl">·</span>
+            <span>Linux</span>
+        </div>
+    </div>
+</section>
+
+<section id="contact" class="cta-section">
+    <div class="container">
+        <div class="section-label">[ 03 ]</div>
+        <div class="big-text">
+            ¿Tienes un proyecto<br>
+            <span class="red">en mente?</span>
+        </div>
+        <p style="opacity:0.5;max-width:400px;margin:0 auto 2rem;font-weight:300">
+            Disponible para trabajo freelance. 
+            Webs, dashboards, APIs, automatizaciones, bots. 
+            Presupuesto justo, entrega rápida.
+        </p>
+        <a href="https://t.me/Wilmer" class="hero-cta">Contactar por Telegram →</a>
+    </div>
+</section>
+
+<footer>
+    WILMER.DEV © 2026 — Hecho sin frameworks. Solo HTML + CSS.
+</footer>
+
+</body>
+</html>
