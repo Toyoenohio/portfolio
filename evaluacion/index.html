@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Evaluación de Monografía - Juan Andrés</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f9f9f9;
+        }
+        h1 {
+            color: #2c3e50;
+            text-align: center;
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 10px;
+        }
+        h2 {
+            color: #2980b9;
+            margin-top: 30px;
+        }
+        .summary-card {
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            margin-bottom: 30px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        th {
+            background-color: #3498db;
+            color: white;
+        }
+        tr:hover {
+            background-color: #f5f5f5;
+        }
+        .total-row {
+            font-weight: bold;
+            background-color: #ecf0f1;
+            font-size: 1.1em;
+        }
+        .total-score {
+            color: #e74c3c;
+            font-size: 1.2em;
+        }
+        
+        /* Estilos del Acordeón */
+        details.criterion {
+            background: #fff;
+            padding: 10px 20px;
+            border-radius: 8px;
+            border-left: 5px solid #3498db;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            margin-bottom: 15px;
+            transition: all 0.3s ease;
+        }
+        details.criterion[open] {
+            padding-bottom: 20px;
+            background-color: #fdfdfd;
+        }
+        summary {
+            font-size: 1.15em;
+            font-weight: 600;
+            color: #2c3e50;
+            cursor: pointer;
+            list-style: none;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 0;
+            outline: none;
+        }
+        summary::-webkit-details-marker {
+            display: none; 
+        }
+        summary::after {
+            content: '▼'; 
+            font-size: 0.8em;
+            color: #3498db;
+            transition: transform 0.3s ease;
+        }
+        details[open] summary::after {
+            transform: rotate(-180deg);
+        }
+        .summary-content {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        .score-badge {
+            background-color: #2ecc71;
+            color: white;
+            padding: 4px 12px;
+            border-radius: 15px;
+            font-size: 0.85em;
+            font-weight: normal;
+        }
+        .score-badge.bueno {
+            background-color: #f39c12;
+        }
+        .details-text {
+            margin-top: 10px;
+            padding-top: 10px;
+            border-top: 1px solid #eee;
+            color: #555;
+        }
+    </style>
+</head>
+<body>
+<h1>Evaluación de Monografía</h1>
+    
+    <div class="summary-card">
+        <h2>Matriz Resumen de Calificación</h2>
+        <p><strong>Estudiante:</strong> Izd935 (Juan Andrés)</p>
+        <table>
+            <thead>
+                <tr>
+                    <th>N°</th>
+                    <th>Criterio de Evaluación</th>
+                    <th>Nivel Asignado</th>
+                    <th>Puntuación</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr><td>1</td><td>Compromiso</td><td>Excelente</td><td>2.0 / 2.0</td></tr>
+                <tr><td>2</td><td>Integridad Académica</td><td>Bueno</td><td>1.0 / 2.0</td></tr>
+                <tr><td>3</td><td>Presentación</td><td>Bueno</td><td>1.0 / 2.0</td></tr>
+                <tr><td>4</td><td>Introducción</td><td>Excelente</td><td>2.0 / 2.0</td></tr>
+                <tr><td>5</td><td>Metodología</td><td>Excelente</td><td>2.0 / 2.0</td></tr>
+                <tr><td>6</td><td>Marco Teórico / Referencia</td><td>Excelente</td><td>2.0 / 2.0</td></tr>
+                <tr><td>7</td><td>Desarrollo</td><td>Excelente</td><td>2.0 / 2.0</td></tr>
+                <tr><td>8</td><td>Conclusión</td><td>Excelente</td><td>2.0 / 2.0</td></tr>
+                <tr><td>9</td><td>Línea de Investigación</td><td>Excelente</td><td>2.0 / 2.0</td></tr>
+                <tr><td>10</td><td>Redacción</td><td>Bueno</td><td>1.0 / 2.0</td></tr>
+                <tr class="total-row">
+                    <td colspan="3" style="text-align: right;">PUNTUACIÓN TOTAL:</td>
+                    <td class="total-score">17.0 / 20.0</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <h2>Análisis Detallado por Criterios (Haz clic para expandir)</h2>
+
+    <details class="criterion">
+        <summary>
+            <div class="summary-content">1. Compromiso <span class="score-badge">Excelente (2.0 ptos)</span></div>
+        </summary>
+        <div class="details-text">
+            <p><strong>Justificación:</strong> El diseño metodológico especifica en el instrumento de recolección de datos que el indicador "Uso del tiempo y entrega puntual" no era evaluable para la muestra, asignándosele la puntuación máxima por defecto. Aplicando el mismo principio a su entrega, se le otorga la calificación máxima.</p>
+        </div>
+    </details>
+
+    <details class="criterion">
+        <summary>
+            <div class="summary-content">2. Integridad Académica <span class="score-badge bueno">Bueno (1.0 pto)</span></div>
+        </summary>
+        <div class="details-text">
+            <p><strong>Justificación:</strong> El estudiante demuestra un buen entendimiento general de las normas APA de 7ma edición. Sin embargo, en el análisis de coincidencias parciales persisten pequeñas inconsistencias formales, como la falta de cursivas en algunos títulos de la bibliografía y detalles de uniformidad en referencias web.</p>
+        </div>
+    </details>
+
+    <details class="criterion">
+        <summary>
+            <div class="summary-content">3. Presentación <span class="score-badge bueno">Bueno (1.0 pto)</span></div>
+        </summary>
+        <div class="details-text">
+            <p><strong>Justificación:</strong> Cumple de manera consistente con la mayoría de los requisitos formales, incluyendo índice paginado, bibliografía estructurada y tablas numeradas. No obstante, las divergencias técnicas del documento señalan que el formato del texto digitalizado dificulta certificar la impecabilidad del interlineado doble o sangrías en apartados específicos como la portada.</p>
+        </div>
+    </details>
+<details class="criterion">
+        <summary>
+            <div class="summary-content">4. Introducción <span class="score-badge">Excelente (2.0 ptos)</span></div>
+        </summary>
+        <div class="details-text">
+            <p><strong>Justificación:</strong> Contiene de forma explícita todos los elementos exigidos: el contexto de la IAG en la educación, la pregunta de investigación delimitada, la justificación de relevancia para la asignatura y los objetivos generales y específicos detallados.</p>
+        </div>
+    </details>
+
+    <details class="criterion">
+        <summary>
+            <div class="summary-content">5. Metodología <span class="score-badge">Excelente (2.0 ptos)</span></div>
+        </summary>
+        <div class="details-text">
+            <p><strong>Justificación:</strong> Describe con claridad un enfoque mixto, un diseño no experimental y comparativo, y detalla la selección de la muestra, la validación del prompt y la triangulación para construir el consenso docente.</p>
+        </div>
+    </details>
+
+    <details class="criterion">
+        <summary>
+            <div class="summary-content">6. Marco Teórico / Referencia <span class="score-badge">Excelente (2.0 ptos)</span></div>
+        </summary>
+        <div class="details-text">
+            <p><strong>Justificación:</strong> Desarrolla conceptos clave como Modelos de Lenguaje (LLM), Ingeniería de Prompts, Evaluación Formativa/Sumativa y Automatizada. El marco se nutre de la postura crítica del estudiante al ligarlo con el entorno escolar de bachillerato.</p>
+        </div>
+    </details>
+
+    <details class="criterion">
+        <summary>
+            <div class="summary-content">7. Desarrollo <span class="score-badge">Excelente (2.0 ptos)</span></div>
+        </summary>
+        <div class="details-text">
+            <p><strong>Justificación:</strong> Articula el análisis dividiéndolo rigurosamente en patrones de Coincidencias Claras, Parciales y Divergencias Técnicas, proveyendo tablas de datos matemáticos sobre el cálculo de la diferencia absoluta en la puntuación.</p>
+        </div>
+    </details>
+
+    <details class="criterion">
+        <summary>
+            <div class="summary-content">8. Conclusión <span class="score-badge">Excelente (2.0 ptos)</span></div>
+        </summary>
+        <div class="details-text">
+            <p><strong>Justificación:</strong> Responde de manera contundente a la pregunta indicando una alineación parcial. Dedica un apartado para reflexionar sobre las limitaciones de su estudio, tales como el tamaño de la muestra de docentes y limitaciones técnicas de las IAG.</p>
+        </div>
+    </details>
+
+    <details class="criterion">
+        <summary>
+            <div class="summary-content">9. Línea de Investigación <span class="score-badge">Excelente (2.0 ptos)</span></div>
+        </summary>
+        <div class="details-text">
+            <p><strong>Justificación:</strong> El estudiante propone formalmente expandir el estudio mediante parámetros estadísticos más avanzados (coeficientes de concordancia, correlaciones estadísticas o medidas de error) para precisar la comparación entre evaluación humana y automatizada.</p>
+        </div>
+    </details>
+
+    <details class="criterion">
+        <summary>
+            <div class="summary-content">10. Redacción <span class="score-badge bueno">Bueno (1.0 pto)</span></div>
+        </summary>
+        <div class="details-text">
+            <p><strong>Justificación:</strong> Posee un registro formal escrito correctamente en tercera persona. No obstante, mantiene erratas tipográficas menores y descuidos visibles, como el título "Conslusiónn" en la página 24 u "Objetivos." con puntos dobles en el índice, lo que le impide alcanzar la excelencia en este renglón.</p>
+        </div>
+    </details>
+
+</body>
+</html>
