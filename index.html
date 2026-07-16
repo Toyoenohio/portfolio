@@ -1,518 +1,398 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>WILMER.DEV _ ARCHIVO</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;500;600;700;800;900&family=Share+Tech+Mono&display=swap" rel="stylesheet">
-    <style>
-        :root{
-            --bg:#000000;
-            --red:#FF2020;
-            --red-dim:rgba(255,32,32,0.15);
-            --red-glow:rgba(255,32,32,0.4);
-            --wire:rgba(255,32,32,0.25);
-            --text:#ffffff;
-            --dim:rgba(255,255,255,0.4);
-            --panel:rgba(6,6,6,1);
-        }
-        *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>WTOYO // AUTOMATION & WEB // SYSTEM_V.404</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Oswald:wght@300;400;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0a0a0a; --bg-deep:#050505; --bg-panel:#0d0d0d;
+  --fg:#00FF41; --fg-bright:#39FF14;
+  --fg-dim:rgba(0,255,65,0.65);
+  --fg-faint:rgba(0,255,65,0.35);
+  --fg-ghost:rgba(0,255,65,0.12);
+  --grid:rgba(0,255,65,0.05);
+  --fh-giant:'Bebas Neue', sans-serif;
+  --fh-cond:'Oswald', sans-serif;
+  --fm:'Space Mono', monospace;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{background:var(--bg);color:var(--fg);font-family:var(--fm);font-size:14px;overflow-x:hidden;cursor:crosshair;letter-spacing:0.03em}
 
-        body{
-            background:var(--bg);
-            color:var(--text);
-            font-family:'Share Tech Mono',monospace;
-            font-size:13px;
-            letter-spacing:0.03em;
-            -webkit-font-smoothing:antialiased;
-        }
-        html{scroll-behavior:smooth}
+.spotlight{position:fixed;inset:0;pointer-events:none;z-index:0;background:radial-gradient(600px circle at var(--x,50%) var(--y,50%), rgba(0,255,65,0.12), transparent 40%);transition:background 0.1s ease}
 
-        /* ── SCANLINES ── */
-        body::after{
-            content:'';
-            position:fixed;inset:0;z-index:9999;pointer-events:none;
-            background:repeating-linear-gradient(
-                0deg,
-                transparent,
-                transparent 2px,
-                rgba(0,0,0,0.03) 2px,
-                rgba(0,0,0,0.03) 4px
-            );
-            opacity:0.6;
-        }
+.bggrid{position:fixed;inset:0;pointer-events:none;z-index:1;background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);background-size:60px 60px;mask-image:radial-gradient(circle at center, black 40%, transparent 90%)}
+.glow{position:fixed;inset:0;pointer-events:none;z-index:2;background:radial-gradient(circle at 80% 10%,rgba(0,255,65,0.08),transparent 50%),radial-gradient(circle at 10% 90%,rgba(0,255,65,0.06),transparent 50%)}
+.scanlines{position:fixed;inset:0;pointer-events:none;z-index:1000;background:repeating-linear-gradient(0deg,transparent 0,transparent 2px,rgba(0,0,0,0.4) 3px,transparent 4px);mix-blend-mode:multiply;opacity:0.6}
 
-        /* ── GRID BACKGROUND ── */
-        body::before{
-            content:'';
-            position:fixed;inset:0;z-index:-1;pointer-events:none;
-            background-image:
-                linear-gradient(rgba(255,32,32,0.03) 1px,transparent 1px),
-                linear-gradient(90deg,rgba(255,32,32,0.03) 1px,transparent 1px);
-            background-size:40px 40px;
-        }
+.container{position:relative;z-index:10;padding:20px;max-width:1600px;margin:0 auto}
 
-        /* ── CONTAINER ── */
-        .container{max-width:1100px;margin:0 auto;padding:0 2rem}
+h1, h2, h3 { font-family: var(--fh-giant); text-transform: uppercase; }
+.mono { font-family: var(--fm); }
 
-        /* ── NAV ── */
-        nav{
-            position:fixed;top:0;left:0;right:0;z-index:100;
-            padding:1.2rem 2rem;
-            display:flex;justify-content:space-between;align-items:center;
-            background:rgba(0,0,0,0.85);
-            border-bottom:1px solid var(--wire);
-            backdrop-filter:blur(10px);
-        }
-        .nav-logo{
-            font-family:'Barlow Condensed',sans-serif;
-            font-size:1.5rem;font-weight:900;letter-spacing:0.15em;
-            color:var(--red);text-transform:uppercase;
-        }
-        .nav-links{display:flex;gap:2.5rem;list-style:none}
-        .nav-links a{
-            color:var(--dim);text-decoration:none;
-            font-size:11px;letter-spacing:0.2em;text-transform:uppercase;
-            transition:color 0.15s;
-            font-family:'Barlow Condensed',sans-serif;font-weight:600;
-        }
-        .nav-links a:hover{color:var(--red)}
+.target { position: relative; border: 1px solid var(--line); }
+.target::before, .target::after, .target > .c1, .target > .c2 {
+  content:''; position:absolute; width:12px; height:12px; border:solid var(--fg); border-width:0;
+}
+.target::before{top:-1px;left:-1px;border-top-width:1px;border-left-width:1px}
+.target::after{top:-1px;right:-1px;border-top-width:1px;border-right-width:1px}
+.target > .c1{bottom:-1px;left:-1px;border-bottom-width:1px;border-left-width:1px}
+.target > .c2{bottom:-1px;right:-1px;border-bottom-width:1px;border-right-width:1px}
 
-        /* ── CORNER DECORATIONS ── */
-        .corner-reg{
-            position:fixed;z-index:200;pointer-events:none;
-            width:12px;height:12px;border-color:var(--wire);
-            border-style:solid;
-        }
-        .corner-reg.tl{top:8px;left:8px;border-width:1px 0 0 1px}
-        .corner-reg.tr{top:8px;right:8px;border-width:1px 1px 0 0}
-        .corner-reg.bl{bottom:8px;left:8px;border-width:0 0 1px 1px}
-        .corner-reg.br{bottom:8px;right:8px;border-width:0 1px 1px 0}
+.statusbar{display:flex;justify-content:space-between;align-items:center;border-top:1px solid var(--fg);border-bottom:1px solid var(--fg);padding:6px 12px;margin-bottom:40px;font-size:11px;letter-spacing:0.2em;text-transform:uppercase;flex-wrap:wrap;gap:8px}
+.statusbar .left, .statusbar .right { display:flex; gap:20px; align-items:center; color:var(--fg-dim); flex-wrap:wrap}
+.statusbar .blink { color:var(--fg-bright); animation: blink 1s steps(2) infinite; }
+@keyframes blink { 50% { opacity: 0; } }
 
-        /* ── SECTION LABELS ── */
-        .reg-mark{
-            font-family:'Share Tech Mono',monospace;
-            font-size:9px;color:var(--red);letter-spacing:0.3em;
-            display:flex;align-items:center;gap:0.8rem;
-            margin-bottom:1.5rem;
-            text-transform:uppercase;
-        }
-        .reg-mark::before{
-            content:'+';color:var(--wire);font-size:14px;
-        }
-        .reg-mark::after{
-            content:'';flex:1;height:1px;background:var(--wire);
-        }
+.hero{position:relative;margin-bottom:60px;padding:40px 0;border-bottom:1px solid var(--fg-ghost);}
+.hero h1{font-size:clamp(48px, 14vw, 220px);line-height:0.85;color:var(--fg-bright);letter-spacing:-0.02em;text-shadow: 4px 4px 0px rgba(0,255,65,0.2);}
+.hero h1 span{color:var(--bg); -webkit-text-stroke: 1.5px var(--fg);}
+.hero .sub-meta{display:flex;justify-content:space-between;margin-top:20px;font-size:12px;color:var(--fg);letter-spacing:0.2em;flex-wrap:wrap;gap:10px}
+.hero .sub-meta div { border-left: 1px solid var(--fg-faint); padding-left: 12px; }
+.hero .sub-meta div:first-child { border-left: none; padding-left: 0; }
 
-        /* ── HERO ── */
-        .hero{
-            padding:10rem 2rem 6rem;min-height:100vh;
-            display:flex;flex-direction:column;justify-content:center;
-            position:relative;
-        }
-        .hero-callout{
-            display:flex;align-items:center;gap:0.5rem;
-            margin-bottom:2rem;
-        }
-        .hero-callout .cross{
-            color:var(--red);font-size:20px;line-height:1;
-        }
-        .hero-callout .label{
-            font-family:'Barlow Condensed',sans-serif;
-            font-size:14px;font-weight:600;letter-spacing:0.25em;
-            text-transform:uppercase;color:var(--dim);
-        }
-        .hero h1{
-            font-family:'Barlow Condensed',sans-serif;
-            font-size:clamp(3.5rem,10vw,8rem);
-            font-weight:900;line-height:0.9;
-            letter-spacing:-0.01em;text-transform:uppercase;
-            color:var(--text);
-            margin-bottom:1rem;
-        }
-        .hero h1 .red{color:var(--red);text-shadow:0 0 60px var(--red-glow)}
+.bento{display:grid;grid-template-columns:repeat(12, 1fr);grid-auto-rows:minmax(100px, auto);gap:16px;margin-bottom:60px}
 
-        .hero-meta{
-            display:flex;gap:2rem;margin-bottom:2.5rem;
-            font-size:10px;letter-spacing:0.25em;color:var(--dim);
-            font-family:'Share Tech Mono',monospace;
-            text-transform:uppercase;
-        }
-        .hero-meta span{display:flex;align-items:center;gap:0.4rem}
-        .hero-meta span::before{
-            content:'';width:6px;height:6px;
-            border:1px solid var(--red);display:inline-block;
-        }
+.panel{background:var(--bg-panel);padding:0;position:relative;overflow:hidden}
+.panel-head{display:flex;justify-content:space-between;border-bottom:1px solid var(--line);padding:8px 12px;background:rgba(0,255,65,0.03);font-size:10px;letter-spacing:0.25em;text-transform:uppercase;color:var(--fg-dim)}
+.panel-head .title { color:var(--fg); font-weight:700; }
+.panel-body{padding:20px}
 
-        .hero-cta{
-            display:inline-flex;align-items:center;
-            background:transparent;
-            border:1px solid var(--red);
-            color:var(--red);
-            padding:0.9rem 2.2rem;
-            font-family:'Barlow Condensed',sans-serif;
-            font-size:14px;font-weight:700;letter-spacing:0.2em;
-            text-transform:uppercase;text-decoration:none;
-            transition:background 0.15s,color 0.15s;
-            position:relative;
-            width:fit-content;
-        }
-        .hero-cta::after{
-            content:'→';margin-left:0.8rem;
-        }
-        .hero-cta:hover{
-            background:var(--red);color:var(--bg);
-        }
+.block-about { grid-column: span 7; grid-row: span 2; }
+.block-about .panel-body { padding: 30px; }
+.block-about h2 { font-size: 48px; margin-bottom: 20px; color:var(--fg); border-left: 4px solid var(--fg); padding-left: 15px; }
+.block-about p { font-size: 15px; line-height: 1.6; color:var(--fg-dim); max-width: 90%; margin-bottom: 20px; }
+.crosshair { position: absolute; top: 20px; right: 20px; font-family: var(--fm); font-size: 18px; color:var(--fg-faint) }
 
-        /* Hero wireframe cross decorations */
-        .hero-cross{
-            position:absolute;pointer-events:none;z-index:0;
-            color:var(--wire);font-size:120px;font-weight:100;
-            font-family:'Barlow Condensed',sans-serif;
-            opacity:0.3;
-        }
-        .hero-cross.x1{top:10%;left:5%;transform:rotate(15deg)}
-        .hero-cross.x2{bottom:15%;right:8%;transform:rotate(-10deg);font-size:80px}
+.block-skills { grid-column: span 5; grid-row: span 2; }
+.skills-list { display: flex; flex-direction: column; gap: 12px; }
+.skill { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px dashed var(--fg-ghost); padding-bottom: 8px; }
+.skill-name { font-family: var(--fh-cond); font-weight: 600; text-transform: uppercase; font-size: 18px; letter-spacing:0.1em; }
+.skill-val { font-family: var(--fm); font-size: 12px; color:var(--fg-bright); }
+.bar { width: 60%; height: 4px; background: var(--bg-deep); border: 1px solid var(--fg-ghost); position: relative; margin-top: 4px; }
+.bar::after { content: ''; position: absolute; left: 0; top: 0; height: 100%; background: var(--fg); width: var(--w, 80%); }
 
-        /* ── SECTION ── */
-        section{padding:6rem 0;position:relative}
+.block-projects { grid-column: span 12; }
+.projects-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+.proj-card { border: 1px solid var(--fg-ghost); padding: 20px; background: var(--bg-deep); transition: all 0.2s ease; cursor: pointer; position: relative; }
+.proj-card:hover { border-color: var(--fg-bright); background: rgba(0,255,65,0.05); transform: translate(2px, -2px); box-shadow: -4px 4px 0 0 rgba(0,255,65,0.15); }
+.proj-card .idx { font-family: var(--fm); font-size: 10px; color:var(--fg-faint); position:absolute; top:10px; right:15px; }
+.proj-card h3 { font-size: 38px; margin: 20px 0 10px; color:var(--fg-bright); line-height: 1; }
+.proj-card .tech { font-family: var(--fm); font-size: 10px; letter-spacing: 0.2em; color: var(--fg); margin-bottom: 15px; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); padding: 4px 0; display:inline-block; }
+.proj-card p { font-size: 12px; line-height: 1.5; color: var(--fg-dim); min-height: 54px; }
+.proj-card .link { margin-top: 15px; display:flex; justify-content:space-between; align-items:center; font-family:var(--fh-cond); text-transform:uppercase; font-size:14px; border-top:1px solid var(--fg-ghost); padding-top:10px; }
+.proj-card .link span { color:var(--fg); display:flex; align-items:center; gap:8px; }
 
-        .section-header{
-            border-top:1px solid var(--wire);
-            border-bottom:1px solid var(--wire);
-            padding:1.5rem 0;margin-bottom:3rem;
-            display:flex;justify-content:space-between;align-items:center;
-        }
-        .section-num{
-            font-family:'Share Tech Mono',monospace;
-            font-size:10px;color:var(--red);letter-spacing:0.3em;
-        }
-        .section-title{
-            font-family:'Barlow Condensed',sans-serif;
-            font-size:clamp(1.5rem,3vw,2.5rem);
-            font-weight:800;text-transform:uppercase;
-            letter-spacing:0.05em;
-        }
-        .section-title .wire{color:var(--wire)}
+.block-terminal { grid-column: span 5; grid-row: span 2; }
+.terminal-body { background: #000; padding: 15px; font-family: var(--fm); font-size: 13px; min-height: 220px; }
+.terminal-body p { margin-bottom: 4px; color: var(--fg-dim); }
+.terminal-body p .cmd { color: var(--fg-bright); }
+.terminal-body p .out { color: var(--fg-faint); padding-left: 10px; }
+.cursor { display: inline-block; width: 8px; height: 14px; background: var(--fg); animation: blink 1s steps(2) infinite; vertical-align: middle; margin-left: 2px; }
 
-        /* ── PROJECTS ── */
-        .projects-grid{
-            display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));
-            gap:1px;background:var(--wire);
-        }
-        .project-card{
-            background:var(--panel);
-            padding:2rem;position:relative;
-            transition:background 0.2s;
-            border:none;
-        }
-        .project-card:hover{background:#0a0a0a}
-        .project-card .card-reg{
-            position:absolute;top:10px;right:10px;
-            font-size:18px;color:var(--wire);line-height:1;
-            font-family:'Share Tech Mono',monospace;
-        }
-        .project-num{
-            font-size:10px;color:var(--red);letter-spacing:0.3em;
-            margin-bottom:1rem;text-transform:uppercase;
-            font-family:'Share Tech Mono',monospace;
-        }
-        .project-card h3{
-            font-family:'Barlow Condensed',sans-serif;
-            font-size:1.4rem;font-weight:700;text-transform:uppercase;
-            letter-spacing:0.06em;margin-bottom:0.4rem;color:var(--text);
-        }
-        .project-tags{
-            display:flex;flex-wrap:wrap;gap:0.3rem;margin-bottom:1.2rem;
-        }
-        .tag{
-            font-size:8px;text-transform:uppercase;letter-spacing:0.2em;
-            padding:0.3rem 0.6rem;
-            font-family:'Share Tech Mono',monospace;
-            border:1px solid var(--wire);
-            color:var(--dim);
-        }
-        .tag.red{border-color:var(--red);color:var(--red);background:var(--red-dim)}
-        .project-card p{
-            font-size:11px;line-height:1.7;color:var(--dim);
-            margin-bottom:1.5rem;
-        }
-        .project-link{
-            font-size:10px;color:var(--red);text-decoration:none;
-            text-transform:uppercase;letter-spacing:0.2em;
-            font-family:'Share Tech Mono',monospace;
-            display:inline-flex;align-items:center;gap:0.4rem;
-            border-bottom:1px dotted var(--wire);
-            padding-bottom:2px;
-        }
-        .project-link:hover{border-color:var(--red);color:var(--text)}
+.block-uptime { grid-column: span 7; grid-row: span 2; }
+.uptime-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 20px; height: 100%; }
+.stat-box { display: flex; flex-direction: column; justify-content: center; border-right: 1px solid var(--fg-ghost); padding-right: 20px; }
+.stat-box:last-child { border-right: none; }
+.stat-val { font-family: var(--fh-giant); font-size: 96px; color: var(--fg-bright); line-height: 0.8; text-shadow: 2px 2px 0 rgba(0,0,0,0.8); }
+.stat-label { font-family: var(--fm); font-size: 11px; text-transform: uppercase; letter-spacing: 0.3em; color: var(--fg-dim); margin-top: 10px; border-top: 1px solid var(--fg); padding-top: 5px; display:inline-block; width: fit-content; }
 
-        /* ── SKILLS TERMINAL ── */
-        .terminal-box{
-            border:1px solid var(--wire);
-            padding:2rem;background:var(--panel);
-            position:relative;
-        }
-        .terminal-box::before{
-            content:'_';
-            color:var(--red);font-size:20px;
-            display:block;margin-bottom:1.5rem;
-            animation:blink 1s step-end infinite;
-        }
-        @keyframes blink{50%{opacity:0}}
-        .terminal-grid{
-            display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));
-            gap:0.8rem;
-        }
-        .terminal-item{
-            font-size:10px;letter-spacing:0.15em;text-transform:uppercase;
-            font-family:'Share Tech Mono',monospace;
-            padding:0.5rem 0;
-            border-bottom:1px dotted rgba(255,255,255,0.05);
-            color:var(--dim);
-            display:flex;align-items:center;gap:0.4rem;
-        }
-        .terminal-item::before{
-            content:'>';
-            color:var(--red);font-size:10px;
-        }
+.ticker { margin: 40px 0; border-top: 1px solid var(--fg); border-bottom: 1px solid var(--fg); padding: 10px 0; overflow: hidden; white-space: nowrap; display: flex; }
+.ticker .track { display: inline-block; white-space: nowrap; animation: marquee 30s linear infinite; }
+.ticker span { font-family: var(--fh-cond); font-size: 24px; text-transform: uppercase; color: var(--fg); padding: 0 20px; letter-spacing: 0.1em; }
+.ticker span:nth-child(even) { color: var(--fg-dim); -webkit-text-stroke: 1px var(--fg); color: transparent; }
+@keyframes marquee { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
 
-        /* ── CTA ── */
-        .cta-section{
-            text-align:center;padding:8rem 0;
-            border-top:1px solid var(--wire);
-            border-bottom:1px solid var(--wire);
-            position:relative;
-        }
-        .cta-glitch{
-            font-family:'Barlow Condensed',sans-serif;
-            font-size:clamp(2rem,5vw,4rem);font-weight:900;
-            text-transform:uppercase;letter-spacing:0.02em;
-            line-height:1;margin-bottom:2rem;color:var(--text);
-        }
-        .cta-glitch .red{
-            color:var(--red);
-            text-shadow:0 0 40px var(--red-glow),0 0 80px var(--red-glow);
-        }
+.footer { margin-top: 40px; border-top: 1px solid var(--fg); padding: 20px 0; display: flex; justify-content: space-between; font-size: 12px; color: var(--fg-dim); text-transform: uppercase; letter-spacing: 0.2em; flex-wrap:wrap; gap:20px}
+.footer .logo { font-family: var(--fh-giant); font-size: 32px; color: var(--fg); }
 
-        /* ── FOOTER ── */
-        footer{
-            padding:2rem;text-align:center;
-            font-size:9px;color:var(--dim);
-            font-family:'Share Tech Mono',monospace;
-            letter-spacing:0.25em;text-transform:uppercase;
-            display:flex;justify-content:center;gap:1rem;
-        }
-        footer span{color:var(--red)}
+.uid { font-size: 9px; color: var(--fg-faint); position: absolute; bottom: 5px; right: 8px; letter-spacing: 0.1em; }
+.registration { position: absolute; top: 10px; left: 15px; font-size: 8px; color: var(--fg-dim); border: 1px solid var(--fg-dim); padding: 1px 4px; }
 
-        /* ── RESPONSIVE ── */
-        @media(max-width:768px){
-            .hero{padding:8rem 1.5rem 4rem}
-            .container{padding:0 1.5rem}
-            section{padding:4rem 0}
-            .nav-links{display:none}
-            .projects-grid{grid-template-columns:1fr}
-            .hero-cross.x1,.hero-cross.x2{font-size:40px}
-        }
-    </style>
+/* Tablet */
+@media (max-width: 1024px) {
+  .block-about { grid-column: span 12; grid-row: span 1; }
+  .block-skills { grid-column: span 12; grid-row: span 1; }
+  .block-terminal { grid-column: span 12; grid-row: span 1; }
+  .block-uptime { grid-column: span 12; grid-row: span 1; }
+  .projects-grid { grid-template-columns: repeat(2, 1fr); }
+  .hero h1 { font-size: clamp(40px, 12vw, 160px); }
+  .stat-val { font-size: 72px; }
+}
+
+@media (max-width: 768px) {
+  .container { padding: 12px; }
+  .statusbar { font-size: 9px; gap: 6px; padding: 6px 8px; }
+  .statusbar .left, .statusbar .right { gap: 10px; }
+  .hero { padding: 20px 0; margin-bottom: 30px; }
+  .hero h1 { font-size: clamp(36px, 16vw, 100px); line-height: 0.9; }
+  .hero .sub-meta { font-size: 10px; gap: 8px; }
+  .hero .sub-meta div { border-left: none; padding-left: 0; width: 100%; }
+  .bento { gap: 12px; margin-bottom: 30px; }
+  .block-about h2 { font-size: 32px; }
+  .block-about .panel-body { padding: 20px; }
+  .projects-grid { grid-template-columns: 1fr; }
+  .proj-card h3 { font-size: 28px; }
+  .uptime-grid { grid-template-columns: 1fr; gap: 16px; }
+  .stat-box { border-right: none; border-bottom: 1px solid var(--fg-ghost); padding-right: 0; padding-bottom: 16px; }
+  .stat-box:last-child { border-bottom: none; padding-bottom: 0; }
+  .stat-val { font-size: 64px; }
+  .ticker span { font-size: 18px; }
+  .footer { flex-direction: column; gap: 16px; text-align: center; }
+  .footer .logo { font-size: 24px; }
+}
+
+@media (max-width: 480px) {
+  .hero h1 { font-size: clamp(32px, 14vw, 60px); }
+  .block-about h2 { font-size: 24px; }
+  .skill-name { font-size: 14px; }
+  .proj-card h3 { font-size: 24px; }
+  .stat-val { font-size: 52px; }
+  .terminal-body { font-size: 12px; min-height: 180px; }
+}
+</style>
+<base target="_blank">
 </head>
 <body>
 
-<div class="corner-reg tl"></div>
-<div class="corner-reg tr"></div>
-<div class="corner-reg bl"></div>
-<div class="corner-reg br"></div>
-
-<nav>
-    <div class="nav-logo">[ W ]</div>
-    <ul class="nav-links">
-        <li><a href="#work">_PROYECTOS</a></li>
-        <li><a href="#stack">_STACK</a></li>
-        <li><a href="#contact">_CONTACTO</a></li>
-    </ul>
-</nav>
-
-<!-- ===== HERO ===== -->
-<section class="hero">
-    <div class="hero-cross x1">+</div>
-    <div class="hero-cross x2">+</div>
-
-    <div class="hero-callout">
-        <span class="cross">+</span>
-        <span class="label">FULL-STACK DEVELOPER</span>
-        <span class="cross">+</span>
+<div class="spotlight" id="spotlight"></div>
+<div class="bggrid"></div>
+<div class="glow"></div>
+<div class="scanlines"></div>
+<div class="container">
+  <div class="statusbar">
+    <div class="left">
+      <span>OPERATOR_ID: WTOYO-01</span>
+      <span>NODE: VENEZUELA</span>
+      <span>SEC_LEVEL: GREEN</span>
     </div>
-
-    <h1>INGENIERÍA<br><span class="red">DE SOFTWARE</span><br>QUE EJECUTA</h1>
-
-    <div class="hero-meta">
-        <span>LECHERÍA · VE</span>
-        <span>DISPONIBLE Q3 2026</span>
+    <div class="right">
+      <span class="blink">[<span style="color:var(--fg-bright)">●</span>] REC</span>
+      <span>TIME: SYS_ONLINE</span>
+      <span>V:0.404a</span>
     </div>
+  </div>
 
-    <a href="#contact" class="hero-cta">INICIAR PROYECTO</a>
-</section>
+  <section class="hero">
+    <div style="font-family:var(--fm); font-size:12px; color:var(--fg); letter-spacing:0.2em; margin-bottom:15px">>> REQ // ESTABLISHING UPLINK...</div>
+    <h1><span>WILMER</span> TOYO<br>AUTO<span>MATION</span></h1>
+    <div class="sub-meta">
+      <div>ROLE: AUTOMATION & WEB_DEV</div>
+      <div>LOC: VENEZUELA</div>
+      <div>STATUS: AVAILABLE_FOR_HIRE</div>
+      <div>EXP: 09_YEARS</div>
+    </div>
+  </section>
 
-<!-- ===== PROJECTS ===== -->
-<section id="work">
-    <div class="container">
-        <div class="reg-mark">SISTEMA 01</div>
+  <div class="bento">
 
-        <div class="section-header">
-            <span class="section-num">[ ARCHIVO ]</span>
-            <h2 class="section-title">PROYECTOS<span class="wire">_</span></h2>
-            <span class="section-num">05 REGISTROS</span>
+    <!-- About -->
+    <div class="panel target block-about">
+      <span class="c1"></span><span class="c2"></span>
+      <div class="panel-head"><span class="title">// ABOUT_PROFILE</span><span>SEC: 01</span></div>
+      <div class="panel-body">
+        <div class="crosshair">+</div>
+        <span class="registration">REG-001</span>
+        <h2>AUTOMATION // WEB // WORKFLOW</h2>
+        <p>
+          Especializado en automatización de procesos de negocio y desarrollo web orientado a resultados. Convierto tareas manuales en flujos autónomos con <strong>n8n</strong>, construyo landings y sitios web de alto rendimiento en <strong>WordPress</strong> y <strong>Astro</strong>, y optimizo operaciones para que mis clientes escalen sin fricción. Enfoque pragmático: si se puede automatizar, se automatiza.
+        </p>
+        <div class="mono" style="font-size:12px; color:var(--fg-bright); border-left:2px solid var(--fg); padding-left:10px; margin-top:20px">
+          > CURRENT_MISSION: [<br>
+          &nbsp;&nbsp;&nbsp;&nbsp;OBJECTIVE: "AUTOMATE_THE_BORING_STUFF",<br>
+          &nbsp;&nbsp;&nbsp;&nbsp;STACK: ["WORDPRESS", "ASTRO", "N8N", "JS"],<br>
+          &nbsp;&nbsp;&nbsp;&nbsp;STATUS: "EXECUTING"<br>
+          ]
         </div>
+      </div>
+      <div class="uid">UID:0x9A4F-22</div>
+    </div>
 
+    <!-- Skills -->
+    <div class="panel target block-skills">
+      <span class="c1"></span><span class="c2"></span>
+      <div class="panel-head"><span class="title">// TECH_ARSENAL</span><span>SEC: 02</span></div>
+      <div class="panel-body">
+        <div class="skills-list">
+          <div>
+            <div class="skill"><span class="skill-name">WordPress</span><span class="skill-val">95%</span></div>
+            <div class="bar" style="--w: 95%"></div>
+          </div>
+          <div>
+            <div class="skill"><span class="skill-name">HTML / CSS</span><span class="skill-val">99%</span></div>
+            <div class="bar" style="--w: 99%"></div>
+          </div>
+          <div>
+            <div class="skill"><span class="skill-name">Astro</span><span class="skill-val">85%</span></div>
+            <div class="bar" style="--w: 85%"></div>
+          </div>
+          <div>
+            <div class="skill"><span class="skill-name">JavaScript</span><span class="skill-val">82%</span></div>
+            <div class="bar" style="--w: 82%"></div>
+          </div>
+          <div>
+            <div class="skill"><span class="skill-name">n8n Automation</span><span class="skill-val">90%</span></div>
+            <div class="bar" style="--w: 90%"></div>
+          </div>
+        </div>
+      </div>
+      <div class="uid">UID:0x11B2-CC</div>
+    </div>
+
+    <!-- Projects -->
+    <div class="panel target block-projects">
+      <span class="c1"></span><span class="c2"></span>
+      <div class="panel-head"><span class="title">// EXECUTION_LOGS // FEATURED_WORK</span><span>SEC: 03</span></div>
+      <div class="panel-body" style="padding:20px">
         <div class="projects-grid">
 
-            <div class="project-card">
-                <div class="card-reg">+</div>
-                <div class="project-num">01 // EDUCADASH</div>
-                <h3>Panel Admin</h3>
-                <div class="project-tags">
-                    <span class="tag red">REACT</span>
-                    <span class="tag">SUPABASE</span>
-                    <span class="tag">TAILWIND</span>
-                </div>
-                <p>
-                    Sistema de gestión escolar: matrícula, pagos, carnets, 
-                    certificados, importación CSV. Auth con caché optimista, 
-                    Edge Functions, deploy en Cloudflare Pages.
-                </p>
-                <a href="#" class="project-link">> ACCEDER</a>
+          <a href="https://nunodirector.com/" class="proj-card target" style="text-decoration:none;display:block">
+            <span class="idx">001</span>
+            <h3>NUNO GOMES</h3>
+            <div class="tech">[ WORDPRESS // CSS // JS ]</div>
+            <p>Portfolio profesional para writer, producer y director. Diseño visual limpio con foco en la obra creativa.</p>
+            <div class="link">
+              <span>nunodirector.com</span>
+              <span style="color:var(--fg-bright)">→</span>
             </div>
+          </a>
 
-            <div class="project-card">
-                <div class="card-reg">+</div>
-                <div class="project-num">02 // EDUCAALU</div>
-                <h3>Portal Estudiante</h3>
-                <div class="project-tags">
-                    <span class="tag red">REACT</span>
-                    <span class="tag">SUPABASE</span>
-                    <span class="tag">PORTAL WEB</span>
-                </div>
-                <p>
-                    Portal estudiantil: consulta de obligaciones, solicitud 
-                    de carnets, historial de pagos. Auth instantáneo con 
-                    localStorage, UI responsive con Tailwind.
-                </p>
-                <a href="#" class="project-link">> ACCEDER</a>
+          <a href="https://academiaeducave.com/" class="proj-card target" style="text-decoration:none;display:block">
+            <span class="idx">002</span>
+            <h3>ACADEMIA EDUCA</h3>
+            <div class="tech">[ WORDPRESS // N8N // LMS ]</div>
+            <p>Plataforma de cursos profesionales y de oficio. Automatización de inscripciones y gestión de alumnos.</p>
+            <div class="link">
+              <span>academiaeducave.com</span>
+              <span style="color:var(--fg-bright)">→</span>
             </div>
+          </a>
 
-            <div class="project-card">
-                <div class="card-reg">+</div>
-                <div class="project-num">03 // GASTIN</div>
-                <h3>Control de Gastos</h3>
-                <div class="project-tags">
-                    <span class="tag red">PWA</span>
-                    <span class="tag">VANILLA JS</span>
-                    <span class="tag">OFFLINE</span>
-                </div>
-                <p>
-                    Aplicación web progresiva para seguimiento de gastos. 
-                    Service worker, modo offline, sincronización al reconectar, 
-                    instalable en móvil y escritorio.
-                </p>
-                <a href="#" class="project-link">> ACCEDER</a>
+          <a href="https://sparquitectosve.com/" class="proj-card target" style="text-decoration:none;display:block">
+            <span class="idx">003</span>
+            <h3>SP ARQUITECTOS</h3>
+            <div class="tech">[ WORDPRESS // HTML // CSS ]</div>
+            <p>Sitio corporativo para estudio de arquitectura e interiorismo. Portafolio de proyectos con diseño elegante.</p>
+            <div class="link">
+              <span>sparquitectosve.com</span>
+              <span style="color:var(--fg-bright)">→</span>
             </div>
+          </a>
 
-            <div class="project-card">
-                <div class="card-reg">+</div>
-                <div class="project-num">04 // OVERDRIVE</div>
-                <h3>Simulador 3D</h3>
-                <div class="project-tags">
-                    <span class="tag red">THREE.JS</span>
-                    <span class="tag">WEBGL</span>
-                    <span class="tag">GAMEPAD</span>
-                </div>
-                <p>
-                    Conducción en 3D sobre calles reales de Lechería. 
-                    Ruta trazada con datos OSM, splines CatmullRom, 
-                    ciclo día/noche, faros dinámicos, gamepad API.
-                </p>
-                <a href="#" class="project-link">> ACCEDER</a>
+          <a href="https://voinic.cl/" class="proj-card target" style="text-decoration:none;display:block">
+            <span class="idx">004</span>
+            <h3>VOINIC</h3>
+            <div class="tech">[ WORDPRESS // JS // SEO ]</div>
+            <p>Web corporativa para firma de contabilidad, tributación, finanzas y auditoría. Diseño serio y profesional.</p>
+            <div class="link">
+              <span>voinic.cl</span>
+              <span style="color:var(--fg-bright)">→</span>
             </div>
-
-            <div class="project-card">
-                <div class="card-reg">+</div>
-                <div class="project-num">05 // DOLAR API</div>
-                <h3>API de Tasas</h3>
-                <div class="project-tags">
-                    <span class="tag red">PYTHON</span>
-                    <span class="tag">REST API</span>
-                    <span class="tag">FLASK</span>
-                </div>
-                <p>
-                    Endpoint REST con tasas BCV + Binance en tiempo real. 
-                    Rate limiting, caché en memoria, documentación OpenAPI. 
-                    Lista para bots, dashboards y apps financieras.
-                </p>
-                <span class="project-link">> PRIVADO</span>
-            </div>
+          </a>
 
         </div>
+      </div>
+      <div class="uid">UID:0x773A-90</div>
     </div>
-</section>
 
-<!-- ===== STACK ===== -->
-<section id="stack">
-    <div class="container">
-        <div class="reg-mark">SISTEMA 02</div>
-
-        <div class="section-header">
-            <span class="section-num">[ KERNEL ]</span>
-            <h2 class="section-title">STACK<span class="wire">_</span></h2>
-            <span class="section-num">17 MÓDULOS</span>
-        </div>
-
-        <div class="terminal-box">
-            <div class="terminal-grid">
-                <div class="terminal-item">REACT</div>
-                <div class="terminal-item">TYPESCRIPT</div>
-                <div class="terminal-item">JAVASCRIPT</div>
-                <div class="terminal-item">PYTHON</div>
-                <div class="terminal-item">SUPABASE</div>
-                <div class="terminal-item">POSTGRESQL</div>
-                <div class="terminal-item">THREE.JS</div>
-                <div class="terminal-item">WEBGL</div>
-                <div class="terminal-item">TAILWIND CSS</div>
-                <div class="terminal-item">PWA</div>
-                <div class="terminal-item">REST API</div>
-                <div class="terminal-item">CLOUDFLARE PAGES</div>
-                <div class="terminal-item">N8N</div>
-                <div class="terminal-item">MANYCHAT</div>
-                <div class="terminal-item">WORDPRESS</div>
-                <div class="terminal-item">GIT</div>
-                <div class="terminal-item">LINUX</div>
-            </div>
-        </div>
+    <!-- Terminal / Contact -->
+    <div class="panel target block-terminal">
+      <span class="c1"></span><span class="c2"></span>
+      <div class="panel-head"><span class="title">// COMMS_UPLINK</span><span>SEC: 04</span></div>
+      <div class="terminal-body">
+        <p><span class="cmd">root@wtoyo:~$</span> init_connection --target=clients</p>
+        <p class="out">[OK] Handshake successful.</p>
+        <p><span class="cmd">root@wtoyo:~$</span> list --contacts</p>
+        <p class="out">> contacto@wtoyo.xyz</p>
+        <p class="out">> github.com/toyoenohio</p>
+        <p><span class="cmd">root@wtoyo:~$</span> execute --message<span class="cursor"></span></p>
+      </div>
+      <div class="uid">UID:0x0042-F1</div>
     </div>
-</section>
 
-<!-- ===== CTA ===== -->
-<section id="contact" class="cta-section">
-    <div class="container">
-        <div class="reg-mark">SISTEMA 03</div>
-
-        <div class="cta-glitch">
-            ¿TIENES UN<br>
-            <span class="red">PROYECTO?</span>
+    <!-- Stats -->
+    <div class="panel target block-uptime">
+      <span class="c1"></span><span class="c2"></span>
+      <div class="panel-head"><span class="title">// PERFORMANCE STATS</span><span>SEC: 05</span></div>
+      <div class="panel-body">
+        <div class="uptime-grid">
+          <div class="stat-box">
+            <div class="stat-val">042</div>
+            <div class="stat-label">DEPLOYED PROJECTS</div>
+          </div>
+          <div class="stat-box">
+            <div class="stat-val">98.9</div>
+            <div class="stat-label">% CLIENT RETENTION</div>
+          </div>
+          <div class="stat-box">
+            <div class="stat-val">09</div>
+            <div class="stat-label">YEARS BUILDING</div>
+          </div>
         </div>
-
-        <p style="color:var(--dim);max-width:420px;margin:0 auto 2rem;font-size:12px;line-height:1.8">
-            Dashboards · APIs · Automatizaciones · PWAs · WebGL · Bots<br>
-            Presupuesto transparente. Entrega rápida. Código limpio.
-        </p>
-
-        <a href="https://t.me/Wilmer" class="hero-cta">[ CONTACTO ]</a>
+      </div>
+      <div class="uid">UID:0x55E1-23</div>
     </div>
-</section>
 
-<footer>
-    <span>●</span> WILMER.DEV <span>●</span> SISTEMA OPERATIVO <span>●</span> 2026 <span>●</span>
-</footer>
+  </div>
+
+  <div class="ticker">
+    <div class="track">
+      <span>WORDPRESS DEVELOPMENT</span>
+      <span>+</span>
+      <span>N8N AUTOMATION</span>
+      <span>+</span>
+      <span>ASTRO STATIC SITES</span>
+      <span>+</span>
+      <span>LANDING PAGES</span>
+      <span>+</span>
+      <span>WEB PERFORMANCE</span>
+      <span>+</span>
+      <span>WORDPRESS DEVELOPMENT</span>
+      <span>+</span>
+      <span>N8N AUTOMATION</span>
+      <span>+</span>
+      <span>ASTRO STATIC SITES</span>
+      <span>+</span>
+      <span>LANDING PAGES</span>
+      <span>+</span>
+      <span>WEB PERFORMANCE</span>
+      <span>+</span>
+    </div>
+  </div>
+
+  <footer class="footer">
+    <div>
+      <div class="logo">W.TOYO</div>
+      <div style="margin-top:5px; font-size:10px">© 2024 // ALL RIGHTS RESERVED // SYSTEM ONLINE</div>
+    </div>
+    <div style="text-align:right">
+      <div>MAIL: contacto@wtoyo.xyz</div>
+      <div>GITHUB: /toyoenohio</div>
+      <div style="margin-top:5px; color:var(--fg-faint)">[ END_OF_TRANSMISSION ]</div>
+    </div>
+  </footer>
+
+</div>
+
+<script>
+const spotlight = document.getElementById('spotlight');
+document.addEventListener('mousemove', (e) => {
+  const x = (e.clientX / window.innerWidth) * 100;
+  const y = (e.clientY / window.innerHeight) * 100;
+  spotlight.style.setProperty('--x', x + '%');
+  spotlight.style.setProperty('--y', y + '%');
+});
+document.addEventListener('touchmove', (e) => {
+  const touch = e.touches[0];
+  const x = (touch.clientX / window.innerWidth) * 100;
+  const y = (touch.clientY / window.innerHeight) * 100;
+  spotlight.style.setProperty('--x', x + '%');
+  spotlight.style.setProperty('--y', y + '%');
+});
+</script>
 
 </body>
 </html>
