@@ -515,10 +515,11 @@ h1, h2, h3 { font-family: var(--fh-giant); text-transform: uppercase; }
         if (res.ok && res.j.ok) { f.reset(); if (tt) tt.value = String(Date.now());
           st.textContent = '[OK] mensaje recibido. respondo en menos de 24 h.'; }
         else if (res.j && res.j.fallback === 'mailto') {
+          var destino = res.j.to || ADDR;
           var subj = encodeURIComponent('Contacto wtoyo.xyz · ' + data.name);
           var body = encodeURIComponent(data.message + '\n\n' + data.name + ' · ' + data.email);
           st.textContent = '[OK] abriendo tu correo con el mensaje listo';
-          location.href = 'mailto:' + ADDR + '?subject=' + subj + '&body=' + body;
+          location.href = 'mailto:' + destino + '?subject=' + subj + '&body=' + body;
         }
         else { st.className='err'; st.textContent = '[ERR] ' + (res.j.error || 'no se pudo enviar, probá por email'); }
       })
