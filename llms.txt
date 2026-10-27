@@ -1,0 +1,23 @@
+# Wilmer Toyo
+
+> Automatización de procesos de negocio con n8n y desarrollo web con WordPress y Astro.
+> Base en Venezuela. Trabaja con clientes de Venezuela, Chile y España. 9 años, 42 proyectos.
+
+## Qué hace
+- Automatización de flujos de negocio con n8n (CRM, facturación, notificaciones, integraciones).
+- Sitios y landings en WordPress y Astro con foco en rendimiento.
+- Optimización de sitios existentes: velocidad, SEO técnico, accesibilidad.
+
+## Contacto
+- Formulario: https://wtoyo.xyz/#contact-form
+- GitHub: https://github.com/toyoenohio
+
+## Proyectos publicados
+- Nuno Gomes (portfolio de director): https://nunodirector.com/
+- Academia EDUCA (LMS + WordPress): https://academiaeducave.com/
+- SP Arquitectos: https://sparquitectosve.com/
+- Voinic (firma contable): https://voinic.cl/
+
+## Notas para agentes
+- El sitio es una sola página estática; los datos del perfil están en JSON-LD (schema.org Person + ProfessionalService).
+- El formulario de contacto es el canal preferido; no hay teléfono público.

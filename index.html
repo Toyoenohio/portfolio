@@ -3,17 +3,54 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>WTOYO // AUTOMATION & WEB // SYSTEM_V.404</title>
+<title>Wilmer Toyo · Automatización con n8n y desarrollo web</title>
+<meta name="description" content="Automatizo procesos con n8n y construyo sitios rápidos en WordPress y Astro. 9 años y 42 proyectos para clientes de Venezuela, Chile y España.">
+<link rel="canonical" href="https://wtoyo.xyz/">
+<meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1">
+<meta name="author" content="Wilmer Toyo">
+<meta name="theme-color" content="#0a0a0a">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%230a0a0a'/%3E%3Ctext x='16' y='23' font-family='monospace' font-size='17' font-weight='bold' fill='%2300FF41' text-anchor='middle'%3EW%3C/text%3E%3C/svg%3E">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Wilmer Toyo">
+<meta property="og:locale" content="es_VE">
+<meta property="og:title" content="Wilmer Toyo · Automatización con n8n y desarrollo web">
+<meta property="og:description" content="Automatizo procesos con n8n y construyo sitios rápidos en WordPress y Astro. 9 años y 42 proyectos.">
+<meta property="og:url" content="https://wtoyo.xyz/">
+<meta property="og:image" content="https://wtoyo.xyz/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Wilmer Toyo — automatización y desarrollo web">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Wilmer Toyo · Automatización con n8n y desarrollo web">
+<meta name="twitter:description" content="Automatizo procesos con n8n y construyo sitios rápidos en WordPress y Astro.">
+<meta name="twitter:image" content="https://wtoyo.xyz/og.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Oswald:wght@300;400;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Oswald:wght@400;700&family=Space+Mono:wght@400;700&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Oswald:wght@400;700&family=Space+Mono:wght@400;700&display=swap" media="print" onload="this.media='all'">
+<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Oswald:wght@400;700&family=Space+Mono:wght@400;700&display=swap"></noscript>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@graph":[
+ {"@type":"Person","@id":"https://wtoyo.xyz/#person","name":"Wilmer Toyo","url":"https://wtoyo.xyz/",
+  "jobTitle":"Automatización de procesos y desarrollo web","image":"https://wtoyo.xyz/og.png",
+  "sameAs":["https://github.com/toyoenohio"],
+  "knowsAbout":["n8n","Automatización de procesos","WordPress","Astro","JavaScript","Rendimiento web"],
+  "address":{"@type":"PostalAddress","addressCountry":"VE"}},
+ {"@type":"ProfessionalService","@id":"https://wtoyo.xyz/#servicio","name":"Wilmer Toyo — Automatización y desarrollo web",
+  "url":"https://wtoyo.xyz/","provider":{"@id":"https://wtoyo.xyz/#person"},"areaServed":["VE","CL","ES"],
+  "serviceType":["Automatización con n8n","Desarrollo WordPress","Sitios Astro","Landing pages","Optimización de rendimiento"]},
+ {"@type":"WebSite","@id":"https://wtoyo.xyz/#website","url":"https://wtoyo.xyz/","name":"Wilmer Toyo","inLanguage":"es",
+  "publisher":{"@id":"https://wtoyo.xyz/#person"}}
+]}
+</script>
 <style>
 :root{
   --bg:#0a0a0a; --bg-deep:#050505; --bg-panel:#0d0d0d;
   --fg:#00FF41; --fg-bright:#39FF14;
-  --fg-dim:rgba(0,255,65,0.65);
-  --fg-faint:rgba(0,255,65,0.35);
-  --fg-ghost:rgba(0,255,65,0.12);
+  --fg-dim:rgba(0,255,65,0.80);
+  --fg-faint:rgba(0,255,65,0.58);
+  --fg-ghost:rgba(0,255,65,0.16);
+  --line:rgba(0,255,65,0.28);
   --grid:rgba(0,255,65,0.05);
   --fh-giant:'Bebas Neue', sans-serif;
   --fh-cond:'Oswald', sans-serif;
@@ -21,12 +58,17 @@
 }
 *{margin:0;padding:0;box-sizing:border-box}
 html,body{background:var(--bg);color:var(--fg);font-family:var(--fm);font-size:14px;overflow-x:hidden;cursor:crosshair;letter-spacing:0.03em}
+:focus-visible{outline:2px solid var(--fg-bright);outline-offset:3px}
 
-.spotlight{position:fixed;inset:0;pointer-events:none;z-index:0;background:radial-gradient(600px circle at var(--x,50%) var(--y,50%), rgba(0,255,65,0.12), transparent 40%);transition:background 0.1s ease}
-
+/* capas decorativas: sin blend-mode (era lo que costaba segundos de pintado) */
+.spotlight{position:fixed;inset:-20%;pointer-events:none;z-index:0;opacity:.9;
+  background:radial-gradient(420px circle at 50% 50%, rgba(0,255,65,0.13), transparent 62%);
+  transform:translate3d(0,0,0);will-change:transform}
 .bggrid{position:fixed;inset:0;pointer-events:none;z-index:1;background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);background-size:60px 60px;mask-image:radial-gradient(circle at center, black 40%, transparent 90%)}
 .glow{position:fixed;inset:0;pointer-events:none;z-index:2;background:radial-gradient(circle at 80% 10%,rgba(0,255,65,0.08),transparent 50%),radial-gradient(circle at 10% 90%,rgba(0,255,65,0.06),transparent 50%)}
-.scanlines{position:fixed;inset:0;pointer-events:none;z-index:1000;background:repeating-linear-gradient(0deg,transparent 0,transparent 2px,rgba(0,0,0,0.4) 3px,transparent 4px);mix-blend-mode:multiply;opacity:0.6}
+.scanlines{position:fixed;inset:0;pointer-events:none;z-index:999;contain:strict;
+  background:repeating-linear-gradient(0deg,transparent 0,transparent 2px,rgba(0,0,0,0.32) 3px,transparent 4px);opacity:0.55}
+@media (hover:none){html,body{cursor:auto}.spotlight{display:none}}
 
 .container{position:relative;z-index:10;padding:20px;max-width:1600px;margin:0 auto}
 
@@ -153,8 +195,33 @@ h1, h2, h3 { font-family: var(--fh-giant); text-transform: uppercase; }
   .stat-val { font-size: 52px; }
   .terminal-body { font-size: 12px; min-height: 180px; }
 }
+
+/* ── COMUNICACIONES: formulario con estética de terminal ───────────── */
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+.mailcopy{font:inherit;color:var(--fg-bright);background:none;border:0;padding:0;cursor:pointer;
+  text-decoration:underline dotted;text-underline-offset:3px}
+.mailcopy:hover{color:#fff}
+#contact-form{margin-top:12px;display:flex;flex-direction:column;gap:9px}
+#contact-form input[type=text],#contact-form input[type=email],#contact-form textarea{
+  font-family:var(--fm);font-size:13px;color:var(--fg-bright);background:#000;
+  border:1px solid var(--line);padding:9px 10px;width:100%;letter-spacing:.03em;border-radius:0}
+#contact-form input::placeholder,#contact-form textarea::placeholder{color:var(--fg-faint)}
+#contact-form input:focus,#contact-form textarea:focus{outline:none;border-color:var(--fg-bright)}
+#contact-form .hp{position:absolute;left:-9999px;width:1px;height:1px;opacity:0;pointer-events:none}
+#contact-form button.send{font-family:var(--fh-cond);text-transform:uppercase;letter-spacing:.2em;
+  font-size:14px;font-weight:700;background:var(--fg);color:#031a06;border:1px solid var(--fg);
+  padding:11px 16px;cursor:pointer;transition:background .15s ease,color .15s ease}
+#contact-form button.send:hover{background:transparent;color:var(--fg-bright)}
+#contact-form button.send:disabled{opacity:.45;cursor:default}
+#cf-status{font-size:11.5px;letter-spacing:.06em;min-height:17px;color:var(--fg-bright)}
+#cf-status.err{color:#ff7a66}
+.ticker .track{will-change:transform}
+@media (prefers-reduced-motion:reduce){
+  .ticker .track,.cursor,.blink{animation:none!important}
+  .proj-card{transition:none}
+  .spotlight{display:none}
+}
 </style>
-<base target="_blank">
 </head>
 <body>
 
@@ -162,7 +229,8 @@ h1, h2, h3 { font-family: var(--fh-giant); text-transform: uppercase; }
 <div class="bggrid"></div>
 <div class="glow"></div>
 <div class="scanlines"></div>
-<div class="container">
+<div class="container" id="top">
+<main>
   <div class="statusbar">
     <div class="left">
       <span>OPERATOR_ID: WTOYO-01</span>
@@ -249,7 +317,7 @@ h1, h2, h3 { font-family: var(--fh-giant); text-transform: uppercase; }
       <div class="panel-body" style="padding:20px">
         <div class="projects-grid">
 
-          <a href="https://nunodirector.com/" class="proj-card target" style="text-decoration:none;display:block">
+          <a href="https://nunodirector.com/" class="proj-card target" style="text-decoration:none;display:block" target="_blank" rel="noopener">
             <span class="idx">001</span>
             <h3>NUNO GOMES</h3>
             <div class="tech">[ WORDPRESS // CSS // JS ]</div>
@@ -260,7 +328,7 @@ h1, h2, h3 { font-family: var(--fh-giant); text-transform: uppercase; }
             </div>
           </a>
 
-          <a href="https://academiaeducave.com/" class="proj-card target" style="text-decoration:none;display:block">
+          <a href="https://academiaeducave.com/" class="proj-card target" style="text-decoration:none;display:block" target="_blank" rel="noopener">
             <span class="idx">002</span>
             <h3>ACADEMIA EDUCA</h3>
             <div class="tech">[ WORDPRESS // N8N // LMS ]</div>
@@ -271,7 +339,7 @@ h1, h2, h3 { font-family: var(--fh-giant); text-transform: uppercase; }
             </div>
           </a>
 
-          <a href="https://sparquitectosve.com/" class="proj-card target" style="text-decoration:none;display:block">
+          <a href="https://sparquitectosve.com/" class="proj-card target" style="text-decoration:none;display:block" target="_blank" rel="noopener">
             <span class="idx">003</span>
             <h3>SP ARQUITECTOS</h3>
             <div class="tech">[ WORDPRESS // HTML // CSS ]</div>
@@ -282,7 +350,7 @@ h1, h2, h3 { font-family: var(--fh-giant); text-transform: uppercase; }
             </div>
           </a>
 
-          <a href="https://voinic.cl/" class="proj-card target" style="text-decoration:none;display:block">
+          <a href="https://voinic.cl/" class="proj-card target" style="text-decoration:none;display:block" target="_blank" rel="noopener">
             <span class="idx">004</span>
             <h3>VOINIC</h3>
             <div class="tech">[ WORDPRESS // JS // SEO ]</div>
@@ -306,9 +374,22 @@ h1, h2, h3 { font-family: var(--fh-giant); text-transform: uppercase; }
         <p><span class="cmd">root@wtoyo:~$</span> init_connection --target=clients</p>
         <p class="out">[OK] Handshake successful.</p>
         <p><span class="cmd">root@wtoyo:~$</span> list --contacts</p>
-        <p class="out">> contacto@wtoyo.xyz</p>
+        <p class="out">> <button type="button" class="mailcopy" id="mailcopy" aria-label="Copiar dirección de correo"><span id="mailtext">escribir por email</span></button></p>
         <p class="out">> github.com/toyoenohio</p>
-        <p><span class="cmd">root@wtoyo:~$</span> execute --message<span class="cursor"></span></p>
+        <p><span class="cmd">root@wtoyo:~$</span> execute --message</p>
+
+        <form id="contact-form" novalidate>
+          <label class="sr-only" for="cf-name">Nombre</label>
+          <input id="cf-name" name="name" type="text" placeholder="nombre" required autocomplete="name" maxlength="80">
+          <label class="sr-only" for="cf-email">Correo electrónico</label>
+          <input id="cf-email" name="email" type="email" placeholder="email" required autocomplete="email" maxlength="120">
+          <label class="sr-only" for="cf-msg">Mensaje</label>
+          <textarea id="cf-msg" name="message" rows="3" placeholder="qué necesitás automatizar o construir" required maxlength="2000"></textarea>
+          <input class="hp" type="text" name="empresa" tabindex="-1" autocomplete="off" aria-hidden="true">
+          <input type="hidden" name="t" id="cf-t" value="">
+          <button class="send" type="submit" id="cf-send">[ enviar_mensaje ]</button>
+          <p id="cf-status" role="status" aria-live="polite"></p>
+        </form>
       </div>
       <div class="uid">UID:0x0042-F1</div>
     </div>
@@ -366,32 +447,79 @@ h1, h2, h3 { font-family: var(--fh-giant); text-transform: uppercase; }
   <footer class="footer">
     <div>
       <div class="logo">W.TOYO</div>
-      <div style="margin-top:5px; font-size:10px">© 2024 // ALL RIGHTS RESERVED // SYSTEM ONLINE</div>
+      <div style="margin-top:5px; font-size:10px">© <span id="year">2026</span> // ALL RIGHTS RESERVED // SYSTEM ONLINE</div>
     </div>
     <div style="text-align:right">
-      <div>MAIL: contacto@wtoyo.xyz</div>
-      <div>GITHUB: /toyoenohio</div>
+      <div>MAIL: <button type="button" class="mailcopy" id="mailcopy2"><span class="mailtext">escribir por email</span></button></div>
+      <div>GITHUB: <a href="https://github.com/toyoenohio" target="_blank" rel="noopener" style="color:inherit">/toyoenohio</a></div>
       <div style="margin-top:5px; color:var(--fg-faint)">[ END_OF_TRANSMISSION ]</div>
     </div>
   </footer>
-
+</main>
 </div>
 
 <script>
-const spotlight = document.getElementById('spotlight');
-document.addEventListener('mousemove', (e) => {
-  const x = (e.clientX / window.innerWidth) * 100;
-  const y = (e.clientY / window.innerHeight) * 100;
-  spotlight.style.setProperty('--x', x + '%');
-  spotlight.style.setProperty('--y', y + '%');
-});
-document.addEventListener('touchmove', (e) => {
-  const touch = e.touches[0];
-  const x = (touch.clientX / window.innerWidth) * 100;
-  const y = (touch.clientY / window.innerHeight) * 100;
-  spotlight.style.setProperty('--x', x + '%');
-  spotlight.style.setProperty('--y', y + '%');
-});
+(function(){
+  var reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var hover  = matchMedia('(hover: hover)').matches;
+
+  /* foco que sigue al mouse: transform en vez de repintar el gradiente */
+  var sp = document.querySelector('.spotlight');
+  if (sp && hover && !reduce) {
+    var tx=0, ty=0, cx=0, cy=0, raf=null;
+    var loop = function(){
+      cx += (tx-cx)*0.16; cy += (ty-cy)*0.16;
+      sp.style.transform = 'translate3d('+cx.toFixed(1)+'px,'+cy.toFixed(1)+'px,0)';
+      raf = (Math.abs(tx-cx)>0.4 || Math.abs(ty-cy)>0.4) ? requestAnimationFrame(loop) : null;
+    };
+    addEventListener('mousemove', function(e){
+      tx = e.clientX - innerWidth/2; ty = e.clientY - innerHeight/2;
+      if (!raf) raf = requestAnimationFrame(loop);
+    }, {passive:true});
+  }
+
+  /* correo armado en JS: no queda en el HTML para los rastreadores */
+  var ADDR = 'contacto' + '@' + 'wtoyo' + '.xyz';
+  document.querySelectorAll('#mailtext, .mailtext').forEach(function(el){ el.textContent = ADDR; });
+  ['mailcopy','mailcopy2'].forEach(function(id){
+    var b = document.getElementById(id); if (!b) return;
+    b.addEventListener('click', function(){
+      if (navigator.clipboard) {
+        navigator.clipboard.writeText(ADDR).then(function(){
+          b.textContent = 'copiado'; setTimeout(function(){ b.textContent = ADDR; }, 1500);
+        }).catch(function(){ location.href = 'mailto:' + ADDR; });
+      } else { location.href = 'mailto:' + ADDR; }
+    });
+  });
+
+  var y = document.getElementById('year'); if (y) y.textContent = new Date().getFullYear();
+
+  /* formulario */
+  var f = document.getElementById('contact-form'),
+      st = document.getElementById('cf-status'),
+      btn = document.getElementById('cf-send'),
+      tt = document.getElementById('cf-t');
+  if (tt) tt.value = String(Date.now());
+  var ENDPOINT = 'https://contact-wtoyo.toyow-cf.workers.dev';
+
+  if (f) f.addEventListener('submit', function(ev){
+    ev.preventDefault();
+    st.className = ''; st.textContent = '';
+    var data = Object.fromEntries(new FormData(f).entries());
+    if (!data.name || !data.email || !data.message) { st.className='err'; st.textContent='[ERR] faltan campos'; return; }
+    if (!/^[^@\s]+@[^@\s]+\.[a-z]{2,}$/i.test(data.email)) { st.className='err'; st.textContent='[ERR] email inválido'; return; }
+    btn.disabled = true; st.textContent = 'transmitiendo...';
+    fetch(ENDPOINT, {method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify(data)})
+      .then(function(r){ return r.json().then(function(j){ return {ok:r.ok, j:j}; }); })
+      .then(function(res){
+        if (res.ok && res.j.ok) { f.reset(); if (tt) tt.value = String(Date.now());
+          st.textContent = '[OK] mensaje recibido. respondo en menos de 24 h.'; }
+        else { st.className='err'; st.textContent = '[ERR] ' + (res.j.error || 'no se pudo enviar, probá por email'); }
+      })
+      .catch(function(){ st.className='err'; st.textContent='[ERR] sin conexión, probá por email'; })
+      .finally(function(){ btn.disabled = false; });
+  });
+})();
 </script>
 
 </body>
